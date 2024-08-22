@@ -42,7 +42,3 @@ composer install --no-progress --no-dev
 composer dump-autoload
 wp dist-archive ./
 ```
-
-- [ ] Add an action to CBOX core's loginform.php to inject a CUNY SSO link
-- [ ] Abstract openlab theme a bit more for easier part replacement on signup form
-- [ ] Core ticket to fix docs for edit_user_profile output location
