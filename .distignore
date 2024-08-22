@@ -1,0 +1,7 @@
+.distignore
+.gitignore
+certificate.crt
+private.key
+oam-saml-metadata.xml
+composer.lock
+phpcs.xml
