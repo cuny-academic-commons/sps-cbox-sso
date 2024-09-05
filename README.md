@@ -13,6 +13,15 @@ Site admins can add a user's CUNY SSO EMPLID to the user's profile to connect an
 
 By default, authorization is SPS specific. The `sps_cbox_sso_can_register` filter can be used to override this behavior based on the available SAML attributes.
 
+### Paths
+
+The plugin manages the following paths:
+
+* `/sso/login` will initiate alogin request through CUNY SSO.
+* `/sso/verify` handles the SAML response from CUNY SSO.
+* `/sso/logout` will initiate a logout request through CUNY SSO.
+* `/sso/metadata.xml` provides the SP metadata for the site.
+
 ## Configuration
 
 The plugin has a default configuration for CUNY SSO identiy provider (IdP) and service provider (SP) metadata.
