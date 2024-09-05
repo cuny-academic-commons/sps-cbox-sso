@@ -4,14 +4,9 @@ Add CUNY SSO integration to Commons In A Box
 
 ## Authorization and Authentication
 
-When this plugin is activated, authorization via CUNY SSO is required for a user to register. The visitor's browser session is redirected to CUNY SSO for authentication. When authentication with CUNY SSO is successful, the information about that session is sent back to the Commons In A Box site, and the SSO
-attributes are checked to determine if the user is authorized to register. If they are, the user can continue with registration.
+When this plugin is activated, authorization via CUNY SSO is **required** for a user to register.
 
-Site admins can add users manually to the site and allow them to login with the standard WordPress form at `/login` or `/wp-login.php`.
-
-Site admins can add a user's CUNY SSO EMPLID to the user's profile to connect an existing user account with CUNY SSO.
-
-By default, authorization is SPS specific. The `sps_cbox_sso_can_register` filter can be used to override this behavior based on the available SAML attributes.
+The visitor's browser session is redirected to CUNY SSO for authentication. When authentication with CUNY SSO is successful, information about that session is sent back to the Commons In A Box site, and the SSO attributes are checked to determine if the user is authorized to register. If they are, the user can continue with registration.
 
 ### Paths
 
@@ -24,11 +19,29 @@ The plugin manages the following paths:
 
 ## Configuration
 
+### IdP and SP Metadata
+
 The plugin has a default configuration for CUNY SSO identiy provider (IdP) and service provider (SP) metadata.
 
 The CUNY SSO IdP configuration was based on [the metadata file provided by CUNY IT](https://ssologin.cuny.edu/idp/metadata/oam-saml-metadata.xml).
 
-Both configurations can be overridden or modified with the `sps_cbox_sso_saml_settings` filter.
+Both IdP and SP configurations can be overridden or modified with the `sps_cbox_sso_saml_settings` filter.
+
+### SAML Attributes
+
+The plugin manages authorization via the SAML attributes expected by CUNY SPS OpenLab.
+
+The `sps_cbox_sso_can_register` filter can be used to override this behavior based on the available SAML attributes.
+
+### Users
+
+Once active, SSO is required for new user regitration. If needed, site admins can add users manually and allow them to login with standard WordPress authentication.
+
+Site admins can also add a user's CUNY SSO EMPLID to a user's profile to connect an existing user account with CUNY SSO.
+
+Site admins can also remove a user's CUNY SSO EMPLID to disconnect a user account from CUNY SSO.
+
+If the `cuny_sso_allow_wp_login` option is set to `yes` on the site, any user without an EMPLID can login with their WordPress credentials.
 
 ### Certificates
 

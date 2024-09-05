@@ -221,22 +221,9 @@ class Init {
 			$user = get_user_by( 'email', $user_name );
 		}
 
-		if ( $user ) {
-			$emplid = get_user_meta( $user->ID, 'cuny_sso_emplid', true );
-
-			// This user has previously authenticated with CUNY SSO.
-			if ( $emplid ) {
-				wp_safe_redirect( Config::login_url() );
-				exit;
-			}
-
-			$allow_wp_login = get_user_meta( $user->ID, 'cuny_sso_allow_wp_login', true );
-
-			// An administrator has not flagged this account as okay for WP login.
-			if ( ! $allow_wp_login ) {
-				wp_safe_redirect( Config::login_url() );
-				exit;
-			}
+		if ( $user && ! self::user_can_use_wp_auth( $user->ID ) ) {
+			wp_safe_redirect( Config::login_url() );
+			exit;
 		}
 	}
 
@@ -252,10 +239,44 @@ class Init {
 	/**
 	 * Filter the default logout URL to go through the SSO logout endpoint.
 	 *
+	 * @param string $logout_url The default logout URL.
 	 * @return string $logout_url The default logout URL.
 	 */
-	public static function filter_logout_url(): string {
+	public static function filter_logout_url( $logout_url ): string {
+		$user = wp_get_current_user();
+
+		if ( self::user_can_use_wp_auth( $user->ID ) ) {
+			return $logout_url;
+		}
+
 		return Config::logout_url();
+	}
+
+	/**
+	 * Determine whether a user is allowed to login with WordPress.
+	 *
+	 * @param int $user_id The ID of the user.
+	 * @return bool Whether the user is allowed to login with WordPress.
+	 */
+	public static function user_can_use_wp_auth( $user_id ): bool {
+		$emplid = get_user_meta( $user_id, 'cuny_sso_emplid', true );
+
+		// This user has already authenticated with CUNY SSO.
+		if ( $emplid ) {
+			return false;
+		}
+
+		// Is this specific user allowed to login with WordPress?
+		$user_allow_wp_login = get_user_meta( $user_id, 'cuny_sso_allow_wp_login', true );
+
+		// Are all non-SSO users allowed to login with WordPress?
+		$site_allow_wp_login = get_option( 'cuny_sso_allow_wp_login', 'no' );
+
+		if ( $user_allow_wp_login || 'yes' === $site_allow_wp_login ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
