@@ -230,10 +230,14 @@ class Init {
 				exit;
 			}
 
-			$allow_wp_login = get_user_meta( $user->ID, 'cuny_sso_allow_wp_login', true );
+			// Is this specific user allowed to login with WordPress?
+			$user_allow_wp_login = get_user_meta( $user->ID, 'cuny_sso_allow_wp_login', true );
 
-			// An administrator has not flagged this account as okay for WP login.
-			if ( ! $allow_wp_login ) {
+			// Are all non-SSO users allowed to login with WordPress?
+			$site_allow_wp_login = get_option( 'cuny_sso_allow_wp_login', 'no' );
+
+			// Redirect to the SSO login if neither options allows WordPress login.
+			if ( ! $user_allow_wp_login && 'no' === $site_allow_wp_login ) {
 				wp_safe_redirect( Config::login_url() );
 				exit;
 			}
