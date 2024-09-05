@@ -198,12 +198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62"
+                "reference": "d9ae4b030f174c8f01d400244107e28ad65ec5e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62",
-                "reference": "2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/d9ae4b030f174c8f01d400244107e28ad65ec5e1",
+                "reference": "d9ae4b030f174c8f01d400244107e28ad65ec5e1",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +280,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-08-11T17:31:58+00:00"
+            "time": "2024-08-31T21:55:43+00:00"
         },
         {
             "name": "phpcompatibility/phpcompatibility-paragonie",
