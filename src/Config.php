@@ -89,7 +89,7 @@ class Config {
 					'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
 				),
 				'singleLogoutService'      => array(
-					'url'     => 'https://ssologin.cuny.edu/oam/server/logout?end_url=' . rawurlencode( self::logout_url() ),
+					'url'     => self::logout_url(),
 					'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
 				),
 				'NameIDFormat'             => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
