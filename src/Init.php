@@ -22,6 +22,7 @@ class Init {
 		add_filter( 'bp_registration_needs_activation', '__return_false' );
 		add_action( 'login_form_login', array( __CLASS__, 'redirect_wp_login_attempts' ) );
 		add_filter( 'bp_get_signup_page', array( __CLASS__, 'filter_signup_url' ) );
+		add_filter( 'login_url', array( __CLASS__, 'filter_login_url' ) );
 		add_filter( 'logout_url', array( __CLASS__, 'filter_logout_url' ) );
 
 		add_filter( 'sps_cbox_sso_can_register', array( __CLASS__, 'sps_user_can_register' ), 10, 2 );
@@ -237,6 +238,15 @@ class Init {
 	}
 
 	/**
+	 * Filter the default login URL to go through the SSO login endpoint.
+	 *
+	 * @return string $login_url The default login URL.
+	 */
+	public static function filter_login_url(): string {
+		return Config::login_url();
+	}
+
+	/**
 	 * Filter the default logout URL to go through the SSO logout endpoint.
 	 *
 	 * @param string $logout_url The default logout URL.
@@ -325,6 +335,13 @@ class Init {
 	 * @return void
 	 */
 	public static function filter_bp_before_sidebar_login_form(): void {
+
+		// Temporarily remove the login URL filter so that we can capture the
+		// non-SSO login URL.
+		remove_filter( 'login_url', array( __CLASS__, 'filter_login_url' ) );
+		$non_sso_login_url = wp_login_url();
+		add_filter( 'login_url', array( __CLASS__, 'filter_login_url' ) );
+
 		?>
 		<style>
 			#user-login form {
@@ -333,7 +350,7 @@ class Init {
 		</style>
 
 		<p><a class="btn btn-default btn-primary link-btn semibold" href="<?php echo esc_url( Config::login_url() ); ?>"><?php esc_html_e( 'Login with CUNY SSO', 'sps-cbox-sso' ); ?></a></p>
-		<p><a href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Login with username and password', 'sps-cbox-sso' ); ?></a></p>
+		<p><a href="<?php echo esc_url( $non_sso_login_url ); ?>"><?php esc_html_e( 'Login with username and password', 'sps-cbox-sso' ); ?></a></p>
 		<?php
 	}
 
