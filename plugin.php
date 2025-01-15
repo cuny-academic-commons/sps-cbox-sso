@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  SPS CBOX SSO
  * Description:  Add CUNY SSO integration to Commons In A Box
- * Version:      0.1.3
+ * Version:      0.2.0
  * Plugin URI:   https://github.com/cuny-academic-commons/sps-cbox-sso
  * Author:       CUNY Academic Commons
  * Author URI:   https://commons.gc.cuny.edu
