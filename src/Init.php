@@ -34,6 +34,7 @@ class Init {
 		add_filter( 'show_password_fields', array( __CLASS__, 'filter_show_password_fields' ), 10, 2 );
 
 		add_action( 'bp_before_sidebar_login_form', array( __CLASS__, 'filter_bp_before_sidebar_login_form' ) );
+		add_action( 'wp_footer', array( __CLASS__, 'remove_login_handler' ) );
 
 		if ( defined( 'SPS_CBOX_SSO_DEBUG' ) && SPS_CBOX_SSO_DEBUG ) {
 			add_action( 'init', array( __CLASS__, 'setup_debug' ) );
@@ -456,5 +457,20 @@ class Init {
 				'label'              => 'SSO Debug',
 			)
 		);
+	}
+
+	/**
+	 * Remove the default OpenLab login handler in the admin bar.
+	 */
+	public static function remove_login_handler(): void {
+		?>
+		<script>
+			jQuery( document ).ready( function( $ ) {
+				document.querySelector( '#wp-admin-bar-bp-login > a' ).addEventListener( 'click', () => {
+					jQuery( '#wp-admin-bar-bp-login > a' ).off();
+				} );
+			} );
+		</script>
+		<?php
 	}
 }
