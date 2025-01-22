@@ -20,7 +20,7 @@ use SPS\CBOX\SSO\Config;
 
 		<p>To create an account, please login with your CUNY credentials.</p>
 
-		<a class="btn btn-primary" href="<?php echo esc_url( Config::login_url() ); ?>">Login with CUNY SSO</a>
+		<a class="btn btn-primary" href="<?php echo esc_url( Config::login_url() ); ?>"><?php esc_html_e( 'Login with CUNY Login', 'sps-cbox-sso' ); ?></a>
 
 	</div>
 

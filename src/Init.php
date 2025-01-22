@@ -350,7 +350,7 @@ class Init {
 			}
 		</style>
 
-		<p><a class="btn btn-default btn-primary link-btn semibold" href="<?php echo esc_url( Config::login_url() ); ?>"><?php esc_html_e( 'Login with CUNY SSO', 'sps-cbox-sso' ); ?></a></p>
+		<p><a class="btn btn-default btn-primary link-btn semibold" href="<?php echo esc_url( Config::login_url() ); ?>"><?php esc_html_e( 'Login with CUNY Login', 'sps-cbox-sso' ); ?></a></p>
 		<p><a href="<?php echo esc_url( $non_sso_login_url ); ?>"><?php esc_html_e( 'Login with username and password', 'sps-cbox-sso' ); ?></a></p>
 		<?php
 	}
