@@ -18,7 +18,13 @@ class Config {
 	 * @return string
 	 */
 	public static function login_url(): string {
-		return get_home_url( null, 'sso/login' );
+		if ( is_multisite() && is_main_site() ) {
+			return network_home_url( 'sso/login' );
+		}
+
+		$login_url = add_query_arg( 'sid', get_current_blog_id(), network_home_url( 'sso/login' ) );
+
+		return $login_url;
 	}
 
 	/**
