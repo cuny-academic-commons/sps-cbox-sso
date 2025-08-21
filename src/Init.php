@@ -51,7 +51,7 @@ class Init {
 
 		if ( '/sso/login' === $path ) {
 			if ( isset( $_GET['sid'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$return_url = get_home_url( absint( $_GET['sid'] ) );
+				$return_url = get_home_url( absint( $_GET['sid'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			} else {
 				$return_url = home_url();
 			}

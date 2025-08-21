@@ -237,8 +237,8 @@ class Auth {
 		// This is a fully registered user. Log them in.
 		$this->set_sso_authentication_cookie( $user );
 
-		if ( isset( $_REQUEST['RelayState'] ) ) {
-			wp_safe_redirect( esc_url( $_REQUEST['RelayState'] ) );
+		if ( isset( $_REQUEST['RelayState'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_safe_redirect( esc_url( $_REQUEST['RelayState'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			exit;
 		}
 
