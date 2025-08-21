@@ -50,8 +50,17 @@ class Init {
 		$path = $path ? untrailingslashit( $path ) : '';
 
 		if ( '/sso/login' === $path ) {
+			if ( isset( $_GET['sid'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$return_url = get_home_url( absint( $_GET['sid'] ) );
+			} else {
+				$return_url = home_url();
+			}
+
 			$auth = new Auth();
-			$auth->saml()->login();
+
+			// The return URL is sent to the IDP and then returned back to this
+			// site as the RelayState parameter in POST data.
+			$auth->saml()->login( esc_url( $return_url ) );
 			exit;
 		}
 
