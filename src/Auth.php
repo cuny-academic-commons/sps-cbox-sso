@@ -236,6 +236,12 @@ class Auth {
 
 		// This is a fully registered user. Log them in.
 		$this->set_sso_authentication_cookie( $user );
+
+		if ( isset( $_REQUEST['RelayState'] ) ) {
+			wp_safe_redirect( esc_url( $_REQUEST['RelayState'] ) );
+			exit;
+		}
+
 		wp_safe_redirect( home_url() );
 		exit;
 	}
