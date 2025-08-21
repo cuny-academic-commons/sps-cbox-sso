@@ -42,7 +42,7 @@ class Config {
 	 * @return string
 	 */
 	public static function logout_url(): string {
-		return get_home_url( null, 'sso/logout' );
+		return network_home_url( 'sso/logout' );
 	}
 
 	/**
